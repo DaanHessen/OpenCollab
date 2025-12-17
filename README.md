@@ -62,7 +62,6 @@ Finding the right open-source project to contribute to can be overwhelming. Repo
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
 * [![Supabase][Supabase]][Supabase-url]
-* [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
 * [![TypeScript][TypeScript]][TypeScript-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -123,7 +122,5 @@ Project Link: [https://github.com/daanhessen/OpenCollab](https://github.com/daan
 [React-url]: https://reactjs.org/
 [Supabase]: https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white
 [Supabase-url]: https://supabase.com
-[TailwindCSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
-[TailwindCSS-url]: https://tailwindcss.com/
 [TypeScript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
