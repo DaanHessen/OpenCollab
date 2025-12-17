@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { createClient } from '@/utils/supabase/server'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -17,10 +18,31 @@ export async function GET(request: Request) {
 
   const [, owner, repo] = match
 
+  const headers: HeadersInit = {
+    'Accept': 'application/vnd.github.v3+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  }
+
+  const supabase = await createClient()
+  const { data: { session } } = await supabase.auth.getSession()
+
+  if (session?.provider_token) {
+    headers['Authorization'] = `Bearer ${session.provider_token}`
+  } else if (process.env.GITHUB_ACCESS_TOKEN) {
+    headers['Authorization'] = `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`
+  }
+
   try {
     // Fetch repo details
-    const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`)
+    const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers })
+    
     if (!repoRes.ok) {
+      if (repoRes.status === 403 || repoRes.status === 429) {
+        throw new Error('GitHub API rate limit exceeded. Please try again later or add a GITHUB_ACCESS_TOKEN.')
+      }
+      if (repoRes.status === 404) {
+        throw new Error('Repository not found. Please check the URL.')
+      }
       throw new Error('Failed to fetch repository details')
     }
     const repoData = await repoRes.json()
@@ -28,6 +50,7 @@ export async function GET(request: Request) {
     // Fetch README
     const readmeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`, {
       headers: {
+        ...headers,
         Accept: 'application/vnd.github.raw',
       },
     })
@@ -38,7 +61,7 @@ export async function GET(request: Request) {
     }
 
     // Fetch languages to guess tech stack
-    const languagesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/languages`)
+    const languagesRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/languages`, { headers })
     let tech_stack: string[] = []
     if (languagesRes.ok) {
       const languagesData = await languagesRes.json()
