@@ -19,6 +19,7 @@ export async function createPost(formData: FormData) {
   const project_stage = formData.get('project_stage') as string
   const time_commitment = formData.get('time_commitment') as string
   const github_url = formData.get('github_url') as string
+  const readme = formData.get('readme') as string
 
   const tech_stack = tech_stack_raw.split(',').map(t => t.trim()).filter(t => t.length > 0)
 
@@ -31,6 +32,7 @@ export async function createPost(formData: FormData) {
     project_stage,
     time_commitment,
     github_url,
+    readme,
   })
 
   if (error) {
@@ -57,6 +59,7 @@ export async function updatePost(id: string, formData: FormData) {
   const project_stage = formData.get('project_stage') as string
   const time_commitment = formData.get('time_commitment') as string
   const github_url = formData.get('github_url') as string
+  const readme = formData.get('readme') as string
 
   const tech_stack = tech_stack_raw.split(',').map(t => t.trim()).filter(t => t.length > 0)
 
@@ -68,6 +71,7 @@ export async function updatePost(id: string, formData: FormData) {
     project_stage,
     time_commitment,
     github_url,
+    readme,
     updated_at: new Date().toISOString(),
   }).eq('id', id).eq('user_id', user.id)
 

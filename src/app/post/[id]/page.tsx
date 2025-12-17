@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Calendar, Clock, ExternalLink, GitBranch, User } from 'lucide-react'
 import DeletePostButton from '@/components/delete-post-button'
 import { Post } from '@/types'
+import ReactMarkdown from 'react-markdown'
 
 export default async function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params
@@ -72,6 +73,15 @@ export default async function PostDetailPage({ params }: { params: Promise<{ id:
             <h3 className="text-xl font-semibold text-white mb-4">Help Needed</h3>
             <p className="text-neutral-300 whitespace-pre-wrap">{post.help_needed}</p>
           </div>
+
+          {post.readme && (
+            <div className="prose prose-invert max-w-none border-t border-neutral-800 pt-8">
+              <h3 className="text-xl font-semibold text-white mb-4">README</h3>
+              <div className="bg-neutral-900/30 rounded-lg p-6 overflow-x-auto">
+                <ReactMarkdown>{post.readme}</ReactMarkdown>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="space-y-6">

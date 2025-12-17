@@ -8,6 +8,7 @@ export type Post = {
   project_stage: string
   time_commitment: string
   github_url: string
+  readme?: string
   created_at: string
   updated_at: string
 }

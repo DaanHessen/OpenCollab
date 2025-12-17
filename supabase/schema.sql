@@ -44,6 +44,7 @@ create table posts (
   project_stage text not null,
   time_commitment text not null,
   github_url text not null,
+  readme text,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
