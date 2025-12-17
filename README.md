@@ -51,11 +51,15 @@
   </ol>
 </details>
 
+
+
 ## About The Project
 
 Finding the right open-source project to contribute to can be overwhelming. Repositories are scattered, issues are often stale, and it's hard to know where help is actually needed.
 
 **OpenCollab** tries to solve this by providing a dedicated platform where maintainers can showcase their projects and explicitly state what kind of help they need. Whether you're looking for a weekend project or a long-term commitment, OpenCollab helps you find the perfect match.
+
+
 
 ### Built With
 
@@ -64,7 +68,7 @@ Finding the right open-source project to contribute to can be overwhelming. Repo
 * [![Supabase][Supabase]][Supabase-url]
 * [![TypeScript][TypeScript]][TypeScript-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Roadmap
 
@@ -77,7 +81,7 @@ Finding the right open-source project to contribute to can be overwhelming. Repo
 
 See the [open issues](https://github.com/daanhessen/OpenCollab/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Contributing
 
@@ -89,13 +93,13 @@ Contributions are what make the open source community such an amazing place to l
 4.  Push to the Branch (`git push origin feature/AmazingFeature`)
 5.  Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Contact
 
