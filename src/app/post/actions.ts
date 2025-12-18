@@ -44,6 +44,32 @@ export async function createPost(formData: FormData) {
   redirect('/feed')
 }
 
+export async function fetchRepoIssues(githubUrl: string) {
+  const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/)
+  if (!match) return []
+
+  const [, owner, repo] = match
+  
+  try {
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/issues?state=open&per_page=10`, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        // Use a public token if available, otherwise rate limits might apply
+        ...(process.env.GITHUB_ACCESS_TOKEN && { 'Authorization': `Bearer ${process.env.GITHUB_ACCESS_TOKEN}` })
+      },
+      next: { revalidate: 3600 } // Cache for 1 hour
+    })
+
+    if (!res.ok) return []
+    
+    const issues = await res.json()
+    return issues.filter((issue: any) => !issue.pull_request) // Filter out PRs
+  } catch (error) {
+    console.error('Error fetching issues:', error)
+    return []
+  }
+}
+
 export async function updatePost(id: string, formData: FormData) {
   const supabase = await createClient()
   

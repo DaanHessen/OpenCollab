@@ -63,3 +63,48 @@ create policy "Users can update their own posts." on posts
 
 create policy "Users can delete their own posts." on posts
   for delete using (auth.uid() = user_id);
+
+-- Create tasks table
+create table tasks (
+  id uuid default gen_random_uuid() primary key,
+  post_id uuid references posts(id) on delete cascade not null,
+  title text not null,
+  description text,
+  status text not null check (status in ('todo', 'in-progress', 'done')),
+  github_issue_url text,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- RLS for tasks
+alter table tasks enable row level security;
+
+create policy "Tasks are viewable by everyone." on tasks
+  for select using (true);
+
+create policy "Post owners can create tasks." on tasks
+  for insert with check (
+    exists (
+      select 1 from posts
+      where posts.id = tasks.post_id
+      and posts.user_id = auth.uid()
+    )
+  );
+
+create policy "Post owners can update tasks." on tasks
+  for update using (
+    exists (
+      select 1 from posts
+      where posts.id = tasks.post_id
+      and posts.user_id = auth.uid()
+    )
+  );
+
+create policy "Post owners can delete tasks." on tasks
+  for delete using (
+    exists (
+      select 1 from posts
+      where posts.id = tasks.post_id
+      and posts.user_id = auth.uid()
+    )
+  );

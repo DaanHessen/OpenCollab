@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { Calendar, Clock, ExternalLink, GitBranch, User, FolderGit2 } from 'lucide-react'
 import DeletePostButton from '@/components/delete-post-button'
 import { Post } from '@/types'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
-import remarkGfm from 'remark-gfm'
+import { MarkdownViewer } from '@/components/markdown-viewer'
 import CommentSection from '@/components/comment-section'
+import { Planboard } from '@/components/planboard'
+import { fetchRepoIssues } from '../actions'
 
 export default async function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params
@@ -22,6 +22,8 @@ export default async function PostDetailPage({ params }: { params: Promise<{ id:
   if (error || !post) {
     notFound()
   }
+
+  const issues = await fetchRepoIssues(post.github_url)
 
   const { data: { user } } = await supabase.auth.getUser()
   const isOwner = user?.id === post.user_id
@@ -60,7 +62,7 @@ export default async function PostDetailPage({ params }: { params: Promise<{ id:
                 <div className="absolute left-0 top-8 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-3 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity z-10 w-48 pointer-events-none">
                   <p className="text-xs font-semibold text-neutral-500 uppercase mb-2">Contributor Stats</p>
                   <div className="flex items-center gap-2 text-black dark:text-white">
-                    <FolderGit2 className="w-4 h-4 text-indigo-500" />
+                    <FolderGit2 className="w-4 h-4 text-primary" />
                     <span>{projectCount || 0} Projects Posted</span>
                   </div>
                 </div>
@@ -80,15 +82,15 @@ export default async function PostDetailPage({ params }: { params: Promise<{ id:
                 >
                   Edit
                 </Link>
-                <DeletePostButton postId={post.id} />
+                <DeletePostButton id={post.id} />
               </>
             )}
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="lg:col-span-3 space-y-8">
           <section>
             <h2 className="text-xl font-bold text-black dark:text-white mb-4">About the Project</h2>
             <p className="text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap leading-relaxed">
@@ -98,25 +100,21 @@ export default async function PostDetailPage({ params }: { params: Promise<{ id:
 
           <section>
             <h2 className="text-xl font-bold text-black dark:text-white mb-4">Help Needed</h2>
-            <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 rounded-lg p-6">
-              <p className="text-indigo-900 dark:text-indigo-200 whitespace-pre-wrap">
+            <div className="bg-primary/5 dark:bg-primary/10 border border-primary/10 dark:border-primary/20 rounded-lg p-6 mb-6">
+              <p className="text-primary dark:text-primary-foreground whitespace-pre-wrap">
                 {post.help_needed}
               </p>
             </div>
+            
+            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">Open Issues</h3>
+            <Planboard issues={issues} />
           </section>
 
           {post.readme && (
             <section>
               <h2 className="text-xl font-bold text-black dark:text-white mb-4">README</h2>
               <div className="bg-neutral-50 dark:bg-neutral-900/50 rounded-lg border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-                <div className="markdown-body p-6" style={{ backgroundColor: 'transparent' }}>
-                  <ReactMarkdown 
-                    rehypePlugins={[rehypeRaw]} 
-                    remarkPlugins={[remarkGfm]}
-                  >
-                    {post.readme}
-                  </ReactMarkdown>
-                </div>
+                <MarkdownViewer content={post.readme} className="p-6" />
               </div>
             </section>
           )}

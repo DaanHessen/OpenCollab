@@ -6,7 +6,7 @@ export default function LoginPage() {
     <div className="flex min-h-[calc(100vh-4rem)]">
       {/* Left Side - Hero/Branding */}
       <div className="hidden lg:flex w-1/2 bg-neutral-900 relative overflow-hidden items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-black/50" />
         <div className="relative z-10 max-w-lg px-8 text-center">
           <h1 className="text-4xl font-bold text-white mb-6">Build Open Source Together</h1>
           <p className="text-lg text-neutral-400 mb-12">
@@ -36,7 +36,7 @@ export default function LoginPage() {
         </div>
         
         {/* Decorative background elements */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
 
