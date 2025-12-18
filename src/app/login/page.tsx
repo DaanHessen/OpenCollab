@@ -1,64 +1,65 @@
 import OAuthButton from '@/components/oauth-button'
 import { Code2, Globe, Users } from 'lucide-react'
+import Link from 'next/link'
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-[calc(100vh-4rem)]">
-      {/* Left Side - Hero/Branding */}
-      <div className="hidden lg:flex w-1/2 bg-neutral-900 relative overflow-hidden items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-black/50" />
-        <div className="relative z-10 max-w-lg px-8 text-center">
-          <h1 className="text-4xl font-bold text-white mb-6">Build Open Source Together</h1>
-          <p className="text-lg text-neutral-400 mb-12">
-            Join a community of developers building the future. Find projects, contribute code, and grow your skills.
-          </p>
-          
-          <div className="grid grid-cols-3 gap-8 text-neutral-300">
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3 rounded-full bg-neutral-800/50 border border-neutral-700">
-                <Code2 className="w-6 h-6" />
-              </div>
-              <span className="text-sm font-medium">Find Projects</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3 rounded-full bg-neutral-800/50 border border-neutral-700">
-                <Users className="w-6 h-6" />
-              </div>
-              <span className="text-sm font-medium">Collaborate</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="p-3 rounded-full bg-neutral-800/50 border border-neutral-700">
-                <Globe className="w-6 h-6" />
-              </div>
-              <span className="text-sm font-medium">Impact</span>
-            </div>
-          </div>
-        </div>
-        
-        {/* Decorative background elements */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-      </div>
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-background relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -z-10" />
 
-      {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 bg-black">
-        <div className="w-full max-w-md space-y-8">
-          <div className="text-center lg:text-left">
-            <h2 className="text-3xl font-bold tracking-tight text-white">
-              Welcome to OpenCollab
-            </h2>
-            <p className="mt-2 text-sm text-neutral-400">
-              Sign in to start your journey.
+      <div className="w-full max-w-md px-4">
+        <div className="border border-border bg-card/50 backdrop-blur-sm rounded-xl p-8 shadow-lg">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
+              Welcome Back
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Sign in to OpenCollab to continue your journey.
             </p>
           </div>
-          
-          <div className="mt-8 space-y-6">
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6">
-              <OAuthButton />
-              <p className="mt-4 text-xs text-center text-neutral-500">
-                By signing in, you agree to our Terms of Service and Privacy Policy.
-              </p>
+
+          <div className="space-y-6">
+            <OAuthButton />
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-border" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Secure Access
+                </span>
+              </div>
             </div>
+
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-accent/50 transition-colors">
+                <Code2 className="w-5 h-5 text-primary" />
+                <span className="text-[10px] font-medium text-muted-foreground">Find Projects</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-accent/50 transition-colors">
+                <Users className="w-5 h-5 text-primary" />
+                <span className="text-[10px] font-medium text-muted-foreground">Collaborate</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-accent/50 transition-colors">
+                <Globe className="w-5 h-5 text-primary" />
+                <span className="text-[10px] font-medium text-muted-foreground">Impact</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-center text-muted-foreground px-4 leading-relaxed">
+              By signing in, you agree to our{' '}
+              <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
+                Privacy Policy
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </div>

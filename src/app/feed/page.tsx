@@ -27,21 +27,31 @@ export default async function FeedPage({
   }
 
   return (
-    <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <aside className="lg:col-span-1">
-          <div className="sticky top-24">
-            <h2 className="text-lg font-semibold text-white mb-6">Filters</h2>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="flex flex-col lg:flex-row gap-8">
+        <aside className="w-full lg:w-64 flex-shrink-0">
+          <div className="sticky top-24 space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground font-[family-name:var(--font-playfair)]">Filters</h2>
+            </div>
             <FeedFilters />
           </div>
         </aside>
-        <div className="lg:col-span-3 space-y-6">
-          {posts?.map((post) => (
-            <PostCard key={post.id} post={post as Post} />
-          ))}
+        <div className="flex-1">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-foreground font-[family-name:var(--font-playfair)] mb-2">Explore Projects</h1>
+            <p className="text-muted-foreground">Discover the latest open source opportunities.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {posts?.map((post) => (
+              <PostCard key={post.id} post={post as Post} />
+            ))}
+          </div>
           {(!posts || posts.length === 0) && (
-            <div className="text-center py-12 border border-dashed border-neutral-800 rounded-lg">
-              <p className="text-neutral-400">No projects found matching your criteria.</p>
+            <div className="text-center py-20 border border-dashed border-border rounded-xl bg-card/50 mt-6">
+              <p className="text-muted-foreground text-lg">No projects found matching your criteria.</p>
+              <button className="mt-4 text-primary hover:underline text-sm">Clear all filters</button>
             </div>
           )}
         </div>

@@ -10,20 +10,29 @@ import { toast } from 'sonner'
 
 export default function PostForm({ post }: { post?: Post }) {
   const action = post ? updatePost.bind(null, post.id) : createPost
+  const [isLoading, setIsLoading] = useState(false)
   const [githubUrl, setGithubUrl] = useState(post?.github_url || '')
   const [issues, setIssues] = useState<any[]>([])
   const [selectedIssues, setSelectedIssues] = useState<any[]>(post?.github_issues || [])
   const [isLoadingIssues, setIsLoadingIssues] = useState(false)
 
   const handleSubmit = async (formData: FormData) => {
-    // Append selected issues to formData
-    formData.append('github_issues', JSON.stringify(selectedIssues))
-    
-    const result = await action(formData)
-    if (result && 'error' in result) {
-      toast.error(result.error)
-    } else {
-      toast.success(post ? 'Project updated successfully' : 'Project posted successfully')
+    setIsLoading(true)
+    try {
+      // Append selected issues to formData
+      formData.append('github_issues', JSON.stringify(selectedIssues))
+      
+      const result = await action(formData)
+      if (result && 'error' in result) {
+        toast.error(result.error)
+      } else {
+        toast.success(post ? 'Project updated successfully' : 'Project posted successfully')
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error('Something went wrong')
+    } finally {
+      setIsLoading(false)
     }
   }
 

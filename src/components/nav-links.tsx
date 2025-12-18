@@ -10,10 +10,10 @@ export default function NavLinks({ user }: { user: User | null }) {
   const isActive = (path: string) => pathname === path
 
   const linkClass = (path: string) => 
-    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+    `px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
       isActive(path) 
-        ? 'text-foreground bg-accent' 
-        : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+        ? 'text-foreground bg-secondary font-semibold' 
+        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
     }`
 
   return (
