@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -30,6 +32,8 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
+          <Footer />
+          <Toaster position="top-center" />
         </ThemeProvider>
       </body>
     </html>
