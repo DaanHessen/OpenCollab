@@ -58,6 +58,7 @@ export default function PrivacyPage() {
         <ul>
           <li>Email address</li>
           <li>First name and last name</li>
+          <li>GitHub Username and Avatar URL</li>
           <li>Usage Data</li>
         </ul>
 
@@ -73,17 +74,27 @@ export default function PrivacyPage() {
           <li>GitHub</li>
         </ul>
         <p>If You decide to register through or otherwise grant us access to a Third-Party Social Media Service, We may collect Personal data that is already associated with Your Third-Party Social Media Service's account, such as Your name, Your email address, Your activities or Your contact list associated with that account.</p>
+        <p>Specifically, OpenCollab uses GitHub OAuth to authenticate users. We request the <code>public_repo</code> scope to allow you to select and display your public repositories on our platform. We store your email, name, and avatar URL to create your user profile. We do not read your private code unless explicitly granted permission for specific features, which are not currently part of the core Service.</p>
         <p>You may also have the option of sharing additional information with the Company through Your Third-Party Social Media Service's account. If You choose to provide such information and Personal Data, during registration or otherwise, You are giving the Company permission to use, share, and store it in a manner consistent with this Privacy Policy.</p>
+
+        <h3>Publicly Visible Information</h3>
+        <p>Please be aware that OpenCollab is a public platform for open source discovery. The following information will be publicly visible to all visitors of the Website:</p>
+        <ul>
+          <li>Your User Profile (Name, Avatar, and GitHub link)</li>
+          <li>Any Projects (Posts) you create, including descriptions, repository links, and help requests</li>
+          <li>Any Tasks or Comments you add to projects</li>
+        </ul>
+        <p>We advise against posting sensitive personal information in public project descriptions or comments.</p>
 
         <h3>Use of Your Personal Data</h3>
         <p>The Company may use Personal Data for the following purposes:</p>
         <ul>
           <li><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</li>
           <li><strong>To manage Your Account:</strong> to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</li>
-          <li><strong>For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</li>
-          <li><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
+          <li><strong>To contact You:</strong> To contact You by email regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
           <li><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</li>
         </ul>
+        <p><strong>We do not sell, trade, or rent Your Personal Data to third parties.</strong> We do not use Your data for advertising purposes. Your data is used solely to provide the Service and facilitate open source collaboration.</p>
 
         <h3>Retention of Your Personal Data</h3>
         <p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>

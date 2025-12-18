@@ -72,18 +72,17 @@ export default function RepoSelector({ onSelect, selectedRepoUrl }: RepoSelector
 
   if (needsAuth) {
     return (
-      <div className="rounded-md border border-border bg-card p-4">
-        <h3 className="mb-2 text-sm font-medium text-foreground">GitHub Access Required</h3>
-        <p className="mb-4 text-xs text-muted-foreground">Please sign in with GitHub to access your repositories.</p>
-        <button
-          type="button"
-          onClick={handleConnect}
-          className="flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-        >
+      <button
+        type="button"
+        onClick={handleConnect}
+        className="w-full flex items-center justify-between gap-3 rounded-md border border-dashed border-primary/30 bg-primary/5 px-3 py-2 text-sm text-primary hover:bg-primary/10 transition-colors"
+      >
+        <span className="flex items-center gap-2">
           <Github className="h-4 w-4" />
-          Sign in with GitHub
-        </button>
-      </div>
+          Connect GitHub Repository
+        </span>
+        <span className="text-xs font-medium bg-primary text-primary-foreground px-2 py-0.5 rounded">Connect</span>
+      </button>
     )
   }
 

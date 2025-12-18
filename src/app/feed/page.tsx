@@ -32,14 +32,14 @@ export default async function FeedPage({
         <aside className="w-full lg:w-64 flex-shrink-0">
           <div className="sticky top-24 space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-foreground font-[family-name:var(--font-playfair)]">Filters</h2>
+              <h2 className="text-lg font-semibold text-foreground">Filters</h2>
             </div>
             <FeedFilters />
           </div>
         </aside>
         <div className="flex-1">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-foreground font-[family-name:var(--font-playfair)] mb-2">Explore Projects</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Explore Projects</h1>
             <p className="text-muted-foreground">Discover the latest open source opportunities.</p>
           </div>
           

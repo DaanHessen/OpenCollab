@@ -49,6 +49,20 @@ export default function TermsPage() {
         <p>You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.</p>
         <p>Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.</p>
 
+        <h2>GitHub Account and Data</h2>
+        <p>To access certain features of the Service, you must register using a valid GitHub account. By connecting your GitHub account, you grant us permission to access and display certain information from your GitHub profile and repositories in accordance with our Privacy Policy.</p>
+        <p>You are responsible for maintaining the security of your GitHub account. We are not liable for any loss or damage arising from your failure to comply with this security obligation.</p>
+
+        <h2>User Content and Open Source Projects</h2>
+        <p>Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material ("Content"). You are responsible for the Content that you post to the Service, including its legality, reliability, and appropriateness.</p>
+        <p>By posting Content to the Service, You grant Us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through the Service. You retain any and all of Your rights to any Content You submit, post or display on or through the Service and You are responsible for protecting those rights.</p>
+        <p>Since OpenCollab is a platform for open source discovery, You acknowledge that:</p>
+        <ul>
+          <li>Projects you post are expected to be Open Source or otherwise publicly accessible.</li>
+          <li>Links to GitHub repositories will allow other users to view your code and potentially contribute.</li>
+          <li>You represent and warrant that: (i) the Content is Yours (You own it) or You have the right to use it and grant Us the rights and license as provided in these Terms, and (ii) the posting of Your Content on or through the Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person.</li>
+        </ul>
+
         <h2>Links to Other Websites</h2>
         <p>Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.</p>
         <p>The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.</p>

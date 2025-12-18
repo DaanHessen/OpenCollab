@@ -3,7 +3,7 @@
 import { createPost, updatePost } from '@/app/post/actions'
 import { Post } from '@/types'
 import { useState } from 'react'
-import { Loader2, CheckSquare, Square, RefreshCw } from 'lucide-react'
+import { Loader2, CheckSquare, Square, RefreshCw, Info } from 'lucide-react'
 import RepoSelector from './repo-selector'
 import { Skeleton } from '@/components/ui/skeleton'
 import { toast } from 'sonner'
@@ -99,153 +99,42 @@ export default function PostForm({ post }: { post?: Post }) {
   }
 
   return (
-    <form action={handleSubmit} className="space-y-8">
+    <form action={handleSubmit} className="space-y-6">
       <input type="hidden" name="readme" id="readme" defaultValue={post?.readme} />
       <input type="hidden" name="github_url" value={githubUrl} />
       
-      <div className="space-y-4">
-        <RepoSelector onSelect={handleRepoSelect} selectedRepoUrl={githubUrl} />
-      </div>
-
-      {/* Issues Selection Section */}
-      <div className="border border-border rounded-lg p-6 bg-card">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-base font-semibold text-foreground">Link GitHub Issues</h3>
-          {githubUrl && (
-            <button 
-              type="button" 
-              onClick={() => fetchIssues(githubUrl)}
-              className="text-xs text-primary hover:text-primary/80 flex items-center gap-1"
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Post a Project</h1>
+          <p className="text-sm text-muted-foreground">Share your open source project and find contributors.</p>
+        </div>
+        <div className="flex items-center gap-3">
+           <button
+              type="submit"
+              disabled={isLoading}
+              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              <RefreshCw className="h-3 w-3" /> Refresh
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                post ? 'Update Project' : 'Post Project'
+              )}
             </button>
-          )}
         </div>
-        
-        {!githubUrl ? (
-          <div className="text-center py-8 text-muted-foreground bg-muted/30 rounded-md border border-dashed border-border">
-            <p className="text-sm">Select a repository above to link issues.</p>
-          </div>
-        ) : isLoadingIssues ? (
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-center gap-3">
-                <Skeleton className="h-4 w-4 rounded" />
-                <div className="space-y-1 flex-1">
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-3 w-24" />
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : issues.length > 0 ? (
-          <div className="max-h-60 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
-            {issues.map(issue => {
-              const isSelected = selectedIssues.some(i => i.id === issue.id)
-              return (
-                <div 
-                  key={issue.id}
-                  onClick={() => toggleIssue(issue)}
-                  className={`flex items-start gap-3 p-3 rounded-md cursor-pointer transition-all ${
-                    isSelected 
-                      ? 'bg-primary/10 border border-primary/20' 
-                      : 'hover:bg-accent border border-transparent'
-                  }`}
-                >
-                  {isSelected ? (
-                    <CheckSquare className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  ) : (
-                    <Square className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  )}
-                  <div>
-                    <p className={`text-sm font-medium ${isSelected ? 'text-foreground' : 'text-muted-foreground'}`}>
-                      {issue.title}
-                    </p>
-                    <div className="flex items-center gap-2 mt-1.5">
-                      <span className="text-xs text-muted-foreground font-mono">#{issue.number}</span>
-                      {issue.labels.map((label: any) => (
-                        <span 
-                          key={label.id} 
-                          className="text-[10px] px-1.5 py-0.5 rounded-full border"
-                          style={{ 
-                            backgroundColor: `#${label.color}10`, 
-                            color: `#${label.color}`,
-                            borderColor: `#${label.color}30`
-                          }}
-                        >
-                          {label.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="text-center py-8 text-muted-foreground bg-muted/30 rounded-md border border-dashed border-border">
-            <p className="text-sm">No open issues found in this repository.</p>
-          </div>
-        )}
       </div>
 
-      <div className="space-y-6">
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium text-foreground mb-2">Project Name</label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            defaultValue={post?.title}
-            required
-            className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
-            placeholder="e.g. OpenCollab"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">Short Description <span className="text-muted-foreground font-normal">(max 300 chars)</span></label>
-          <textarea
-            name="description"
-            id="description"
-            rows={3}
-            maxLength={300}
-            defaultValue={post?.description}
-            required
-            className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors resize-none"
-            placeholder="Briefly describe your project..."
-          />
-        </div>
-
-        <div>
-          <label htmlFor="help_needed" className="block text-sm font-medium text-foreground mb-2">What help is needed?</label>
-          <textarea
-            name="help_needed"
-            id="help_needed"
-            rows={5}
-            defaultValue={post?.help_needed}
-            required
-            className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
-            placeholder="Describe the specific help you are looking for..."
-          />
-        </div>
-
-        <div>
-          <label htmlFor="tech_stack" className="block text-sm font-medium text-foreground mb-2">Tech Stack <span className="text-muted-foreground font-normal">(comma separated)</span></label>
-          <input
-            type="text"
-            name="tech_stack"
-            id="tech_stack"
-            defaultValue={post?.tech_stack?.join(', ')}
-            required
-            className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
-            placeholder="React, TypeScript, Tailwind..."
-          />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="project_stage" className="block text-sm font-medium text-foreground mb-2">Project Stage</label>
+      {/* Control Bar: Repo & Settings */}
+      <div className="bg-card border border-border rounded-xl p-4 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+         <div className="lg:col-span-6">
+            <label className="block text-sm font-medium text-foreground mb-1.5">Repository</label>
+            <RepoSelector onSelect={handleRepoSelect} selectedRepoUrl={githubUrl} />
+         </div>
+         <div className="lg:col-span-3">
+            <label htmlFor="project_stage" className="block text-sm font-medium text-foreground mb-1.5">Stage</label>
             <select
               name="project_stage"
               id="project_stage"
@@ -254,42 +143,179 @@ export default function PostForm({ post }: { post?: Post }) {
             >
               <option value="Idea">Idea</option>
               <option value="Prototype">Prototype</option>
-              <option value="Active">Active Development</option>
+              <option value="Active">Active</option>
               <option value="Maintenance">Maintenance</option>
             </select>
-          </div>
-
-          <div>
-            <label htmlFor="time_commitment" className="block text-sm font-medium text-foreground mb-2">Time Commitment</label>
+         </div>
+         <div className="lg:col-span-3">
+            <label htmlFor="time_commitment" className="block text-sm font-medium text-foreground mb-1.5">Commitment</label>
             <select
               name="time_commitment"
               id="time_commitment"
               defaultValue={post?.time_commitment || 'Flexible'}
               className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
             >
-              <option value="One-off">One-off Contribution</option>
-              <option value="Few hours">Few hours / week</option>
-              <option value="Ongoing">Ongoing / Long-term</option>
+              <option value="One-off">One-off</option>
+              <option value="Few hours">Part-time</option>
+              <option value="Ongoing">Ongoing</option>
             </select>
-          </div>
-        </div>
+         </div>
       </div>
 
-      <div className="pt-4">
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="flex w-full justify-center rounded-md border border-transparent bg-primary px-4 py-3 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            post ? 'Update Project' : 'Post Project'
-          )}
-        </button>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column: Main Content (2 cols wide) */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-sm space-y-4">
+            <h3 className="text-base font-semibold mb-1">Project Details</h3>
+            
+            <div className="grid grid-cols-1 gap-4">
+               <div>
+                <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1.5">Project Name</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  defaultValue={post?.title}
+                  required
+                  className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
+                  placeholder="e.g. OpenCollab"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="description" className="block text-sm font-medium text-foreground mb-1.5">
+                  Short Description
+                </label>
+                <textarea
+                  name="description"
+                  id="description"
+                  rows={2}
+                  maxLength={300}
+                  defaultValue={post?.description}
+                  required
+                  className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors resize-none"
+                  placeholder="Briefly describe your project..."
+                />
+              </div>
+
+              <div>
+                 <label htmlFor="tech_stack" className="block text-sm font-medium text-foreground mb-1.5">
+                    Tech Stack <span className="text-muted-foreground font-normal">(comma separated)</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="tech_stack"
+                    id="tech_stack"
+                    defaultValue={post?.tech_stack?.join(', ')}
+                    required
+                    className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
+                    placeholder="React, TypeScript, Tailwind..."
+                  />
+               </div>
+
+               <div>
+                <label htmlFor="help_needed" className="block text-sm font-medium text-foreground mb-1.5">What help is needed?</label>
+                <textarea
+                  name="help_needed"
+                  id="help_needed"
+                  rows={6}
+                  defaultValue={post?.help_needed}
+                  required
+                  className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm transition-colors"
+                  placeholder="Describe the specific help you are looking for..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Issues (1 col wide) */}
+        <div className="space-y-6">
+          {/* Issues */}
+          <div className="bg-card border border-border rounded-xl p-5 shadow-sm flex flex-col h-full min-h-[500px]">
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-base font-semibold">Link Issues</h3>
+              {githubUrl && (
+                <button 
+                  type="button" 
+                  onClick={() => fetchIssues(githubUrl)}
+                  className="text-xs text-primary hover:text-primary/80 flex items-center gap-1"
+                >
+                  <RefreshCw className="h-3 w-3" /> Refresh
+                </button>
+              )}
+            </div>
+            
+            <div className="flex-1 overflow-y-auto custom-scrollbar -mr-2 pr-2">
+               {!githubUrl ? (
+                  <div className="h-full flex flex-col items-center justify-center text-muted-foreground text-center p-4 border border-dashed border-border rounded-lg bg-muted/30">
+                    <Info className="h-6 w-6 mb-2 opacity-50" />
+                    <p className="text-xs">Select a repository to link issues.</p>
+                  </div>
+                ) : isLoadingIssues ? (
+                  <div className="space-y-3">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <Skeleton className="h-4 w-4 rounded" />
+                        <div className="space-y-1 flex-1">
+                          <Skeleton className="h-4 w-full" />
+                          <Skeleton className="h-3 w-24" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : issues.length > 0 ? (
+                  <div className="space-y-2">
+                    {issues.map(issue => {
+                      const isSelected = selectedIssues.some(i => i.id === issue.id)
+                      return (
+                        <div 
+                          key={issue.id}
+                          onClick={() => toggleIssue(issue)}
+                          className={`flex items-start gap-3 p-2.5 rounded-md cursor-pointer transition-all border ${
+                            isSelected 
+                              ? 'bg-primary/5 border-primary/20' 
+                              : 'hover:bg-accent border-transparent hover:border-border'
+                          }`}
+                        >
+                          {isSelected ? (
+                            <CheckSquare className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                          ) : (
+                            <Square className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          )}
+                          <div className="min-w-0">
+                            <p className={`text-sm font-medium truncate ${isSelected ? 'text-foreground' : 'text-muted-foreground'}`}>
+                              {issue.title}
+                            </p>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-[10px] text-muted-foreground font-mono">#{issue.number}</span>
+                              {issue.labels.slice(0, 2).map((label: any) => (
+                                <span 
+                                  key={label.id} 
+                                  className="text-[10px] px-1.5 py-0 rounded-full border truncate max-w-[100px]"
+                                  style={{ 
+                                    backgroundColor: `#${label.color}10`, 
+                                    color: `#${label.color}`,
+                                    borderColor: `#${label.color}30`
+                                  }}
+                                >
+                                  {label.name}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <div className="h-full flex flex-col items-center justify-center text-muted-foreground text-center p-4 border border-dashed border-border rounded-lg bg-muted/30">
+                    <p className="text-xs">No open issues found.</p>
+                  </div>
+                )}
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   )
