@@ -8,7 +8,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/daanhessen/OpenCollab">
+  <a href="https://github.com/DaanHessen/OpenCollab">
     <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
@@ -18,12 +18,12 @@
     A discovery platform for open source projects seeking contributors.
     <br />
     <br />
-    <a href="https://github.com/daanhessen/OpenCollab"><strong>Visit</strong></a>
+    <a href="https://github.com/DaanHessen/OpenCollab"><strong>Visit</strong></a>
     <br />
     <br />
-    <a href="https://github.com/daanhessen/OpenCollab/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/DaanHessen/OpenCollab/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
-    <a href="https://github.com/daanhessen/OpenCollab/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/DaanHessen/OpenCollab/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -79,7 +79,7 @@ Finding the right open-source project to contribute to can be overwhelming. Repo
 - [ ] Direct Messaging?
 - [ ] "Good First Issue" Integration
 
-See the [open issues](https://github.com/daanhessen/OpenCollab/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/DaanHessen/OpenCollab/issues) for a full list of proposed features (and known issues).
 
 
 
@@ -105,20 +105,20 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Daan Hessen - daanh2002@gmail.com
 
-Project Link: [https://github.com/daanhessen/OpenCollab](https://github.com/daanhessen/OpenCollab)
+Project Link: [https://github.com/DaanHessen/OpenCollab](https://github.com/DaanHessen/OpenCollab)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/daanhessen/OpenCollab.svg?style=for-the-badge
-[contributors-url]: https://github.com/daanhessen/OpenCollab/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/daanhessen/OpenCollab.svg?style=for-the-badge
-[forks-url]: https://github.com/daanhessen/OpenCollab/network/members
-[stars-shield]: https://img.shields.io/github/stars/daanhessen/OpenCollab.svg?style=for-the-badge
-[stars-url]: https://github.com/daanhessen/OpenCollab/stargazers
-[issues-shield]: https://img.shields.io/github/issues/daanhessen/OpenCollab.svg?style=for-the-badge
-[issues-url]: https://github.com/daanhessen/OpenCollab/issues
-[license-shield]: https://img.shields.io/github/license/daanhessen/OpenCollab.svg?style=for-the-badge
-[license-url]: https://github.com/daanhessen/OpenCollab/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/DaanHessen/OpenCollab.svg?style=for-the-badge
+[contributors-url]: https://github.com/DaanHessen/OpenCollab/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/DaanHessen/OpenCollab.svg?style=for-the-badge
+[forks-url]: https://github.com/DaanHessen/OpenCollab/network/members
+[stars-shield]: https://img.shields.io/github/stars/DaanHessen/OpenCollab.svg?style=for-the-badge
+[stars-url]: https://github.com/DaanHessen/OpenCollab/stargazers
+[issues-shield]: https://img.shields.io/github/issues/DaanHessen/OpenCollab.svg?style=for-the-badge
+[issues-url]: https://github.com/DaanHessen/OpenCollab/issues
+[license-shield]: https://img.shields.io/github/license/DaanHessen/OpenCollab.svg?style=for-the-badge
+[license-url]: https://github.com/DaanHessen/OpenCollab/blob/main/LICENSE
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
