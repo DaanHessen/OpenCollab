@@ -37,13 +37,13 @@ export default function UserMenu({ user }: { user: User }) {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-white transition-colors focus:outline-none"
+        className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
       >
         {avatarUrl ? (
-          <img src={avatarUrl} alt={fullName} className="h-8 w-8 rounded-full border border-neutral-700" />
+          <img src={avatarUrl} alt={fullName} className="h-8 w-8 rounded-full border border-border" />
         ) : (
-          <div className="h-8 w-8 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center">
-            <UserIcon className="h-4 w-4" />
+          <div className="h-8 w-8 rounded-full bg-muted border border-border flex items-center justify-center">
+            <UserIcon className="h-4 w-4 text-muted-foreground" />
           </div>
         )}
         <span className="hidden sm:block max-w-[100px] truncate">{fullName}</span>
@@ -51,16 +51,16 @@ export default function UserMenu({ user }: { user: User }) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md border border-neutral-800 bg-neutral-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1 z-50">
-          <div className="px-4 py-3 border-b border-neutral-800">
-            <p className="text-sm text-white font-medium truncate">{fullName}</p>
-            <p className="text-xs text-neutral-500 truncate">{user.email}</p>
+        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md border border-border bg-popover text-popover-foreground shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1 z-50">
+          <div className="px-4 py-3 border-b border-border">
+            <p className="text-sm font-medium truncate">{fullName}</p>
+            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
           </div>
           
           <div className="py-1">
             <Link
               href="/account"
-              className="flex items-center px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-800 hover:text-white"
+              className="flex items-center px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
               onClick={() => setIsOpen(false)}
             >
               <UserIcon className="mr-3 h-4 w-4" />
@@ -68,7 +68,7 @@ export default function UserMenu({ user }: { user: User }) {
             </Link>
             <Link
               href="/settings"
-              className="flex items-center px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-800 hover:text-white"
+              className="flex items-center px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
               onClick={() => setIsOpen(false)}
             >
               <Settings className="mr-3 h-4 w-4" />
@@ -76,10 +76,10 @@ export default function UserMenu({ user }: { user: User }) {
             </Link>
           </div>
 
-          <div className="border-t border-neutral-800 py-1">
+          <div className="border-t border-border py-1">
             <button
               onClick={handleSignOut}
-              className="flex w-full items-center px-4 py-2 text-sm text-red-400 hover:bg-neutral-800 hover:text-red-300"
+              className="flex w-full items-center px-4 py-2 text-sm text-destructive hover:bg-destructive/10 hover:text-destructive"
             >
               <LogOut className="mr-3 h-4 w-4" />
               Sign out

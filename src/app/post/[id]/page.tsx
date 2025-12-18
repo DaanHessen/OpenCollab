@@ -23,7 +23,10 @@ export default async function PostDetailPage({ params }: { params: Promise<{ id:
     notFound()
   }
 
-  const issues = await fetchRepoIssues(post.github_url)
+  // Use linked issues if available, otherwise fallback to fetching recent open issues
+  const issues = (post.github_issues && post.github_issues.length > 0) 
+    ? post.github_issues 
+    : await fetchRepoIssues(post.github_url)
 
   const { data: { user } } = await supabase.auth.getUser()
   const isOwner = user?.id === post.user_id

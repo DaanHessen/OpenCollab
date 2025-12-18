@@ -27,20 +27,20 @@ export function ProfileForm({
   return (
     <form action={formAction} className="space-y-6">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-400 mb-1">
+        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
           Email Address
         </label>
         <input
           type="email"
           disabled
           value={email}
-          className="block w-full rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-3 py-2 text-neutral-500 cursor-not-allowed sm:text-sm"
+          className="block w-full rounded-md border border-input bg-muted px-3 py-2 text-muted-foreground cursor-not-allowed sm:text-sm"
         />
-        <p className="mt-1 text-xs text-neutral-600">Email cannot be changed as it is managed by GitHub.</p>
+        <p className="mt-1 text-xs text-muted-foreground">Email cannot be changed as it is managed by GitHub.</p>
       </div>
 
       <div>
-        <label htmlFor="full_name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+        <label htmlFor="full_name" className="block text-sm font-medium text-foreground mb-1">
           Display Name
         </label>
         <input
@@ -48,7 +48,7 @@ export function ProfileForm({
           name="full_name"
           id="full_name"
           defaultValue={fullName}
-          className="block w-full rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-black dark:text-white px-3 py-2 focus:border-primary focus:ring-primary sm:text-sm"
+          className="block w-full rounded-md border border-input bg-background text-foreground px-3 py-2 focus:border-primary focus:ring-primary sm:text-sm"
           placeholder="Your name"
         />
       </div>

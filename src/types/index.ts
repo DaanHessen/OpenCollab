@@ -9,6 +9,7 @@ export type Post = {
   time_commitment: string
   github_url: string
   readme?: string
+  github_issues?: any[]
   created_at: string
   updated_at: string
 }

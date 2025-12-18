@@ -20,6 +20,14 @@ export async function createPost(formData: FormData) {
   const time_commitment = formData.get('time_commitment') as string
   const github_url = formData.get('github_url') as string
   const readme = formData.get('readme') as string
+  const github_issues_raw = formData.get('github_issues') as string
+  
+  let github_issues = []
+  try {
+    github_issues = github_issues_raw ? JSON.parse(github_issues_raw) : []
+  } catch (e) {
+    console.error('Failed to parse github_issues', e)
+  }
 
   const tech_stack = tech_stack_raw.split(',').map(t => t.trim()).filter(t => t.length > 0)
 
@@ -33,6 +41,7 @@ export async function createPost(formData: FormData) {
     time_commitment,
     github_url,
     readme,
+    github_issues,
   })
 
   if (error) {
@@ -86,6 +95,14 @@ export async function updatePost(id: string, formData: FormData) {
   const time_commitment = formData.get('time_commitment') as string
   const github_url = formData.get('github_url') as string
   const readme = formData.get('readme') as string
+  const github_issues_raw = formData.get('github_issues') as string
+  
+  let github_issues = []
+  try {
+    github_issues = github_issues_raw ? JSON.parse(github_issues_raw) : []
+  } catch (e) {
+    console.error('Failed to parse github_issues', e)
+  }
 
   const tech_stack = tech_stack_raw.split(',').map(t => t.trim()).filter(t => t.length > 0)
 
@@ -98,6 +115,7 @@ export async function updatePost(id: string, formData: FormData) {
     time_commitment,
     github_url,
     readme,
+    github_issues,
     updated_at: new Date().toISOString(),
   }).eq('id', id).eq('user_id', user.id)
 

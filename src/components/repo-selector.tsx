@@ -1,8 +1,9 @@
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
-import { Github, Loader2, RefreshCw } from 'lucide-react'
+import { Github, RefreshCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface Repo {
   id: number
@@ -61,19 +62,23 @@ export default function RepoSelector({ onSelect, selectedRepoUrl }: RepoSelector
   }
 
   if (isLoading) {
-    return <div className="flex items-center gap-2 text-neutral-400"><Loader2 className="h-4 w-4 animate-spin" /> Loading repositories...</div>
+    return (
+      <div className="space-y-2">
+        <Skeleton className="h-5 w-32" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+    )
   }
 
   if (needsAuth) {
-    // This should theoretically not happen if we enforce GitHub login, but good to keep as fallback
     return (
-      <div className="rounded-md border border-neutral-800 bg-neutral-900 p-4">
-        <h3 className="mb-2 text-sm font-medium text-white">GitHub Access Required</h3>
-        <p className="mb-4 text-xs text-neutral-400">Please sign in with GitHub to access your repositories.</p>
+      <div className="rounded-md border border-border bg-card p-4">
+        <h3 className="mb-2 text-sm font-medium text-foreground">GitHub Access Required</h3>
+        <p className="mb-4 text-xs text-muted-foreground">Please sign in with GitHub to access your repositories.</p>
         <button
           type="button"
           onClick={handleConnect}
-          className="flex items-center gap-2 rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-neutral-200"
+          className="flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           <Github className="h-4 w-4" />
           Sign in with GitHub
@@ -84,35 +89,40 @@ export default function RepoSelector({ onSelect, selectedRepoUrl }: RepoSelector
 
   if (error) {
     return (
-      <div className="text-red-400 text-sm flex items-center gap-2">
+      <div className="text-destructive text-sm flex items-center gap-2">
         {error}
-        <button type="button" onClick={fetchRepos} className="text-neutral-400 hover:text-white"><RefreshCw className="h-4 w-4" /></button>
+        <button type="button" onClick={fetchRepos} className="text-muted-foreground hover:text-foreground"><RefreshCw className="h-4 w-4" /></button>
       </div>
     )
   }
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-neutral-300">Select Repository</label>
-      <select
-        className="block w-full rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-white focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        onChange={(e) => {
-          const repo = repos.find(r => r.html_url === e.target.value)
-          if (repo) onSelect(repo)
-        }}
-        value={selectedRepoUrl || ''}
-      >
-        <option value="">-- Select a repository --</option>
-        {repos.map((repo) => (
-          <option key={repo.id} value={repo.html_url}>
-            {repo.full_name}
-          </option>
-        ))}
-      </select>
-      <div className="flex justify-end">
-         <button type="button" onClick={fetchRepos} className="text-xs text-neutral-500 hover:text-neutral-300 flex items-center gap-1">
-            <RefreshCw className="h-3 w-3" /> Refresh List
-         </button>
+      <label className="block text-sm font-medium text-foreground">Select Repository</label>
+      <div className="flex gap-2">
+        <select
+          className="block w-full rounded-md border border-input bg-background px-3 py-2 text-foreground focus:border-primary focus:ring-primary sm:text-sm"
+          onChange={(e) => {
+            const repo = repos.find(r => r.html_url === e.target.value)
+            if (repo) onSelect(repo)
+          }}
+          value={selectedRepoUrl || ''}
+        >
+          <option value="">Select a repository...</option>
+          {repos.map((repo) => (
+            <option key={repo.id} value={repo.html_url}>
+              {repo.full_name}
+            </option>
+          ))}
+        </select>
+        <button 
+          type="button" 
+          onClick={fetchRepos} 
+          className="p-2 text-muted-foreground hover:text-foreground border border-input rounded-md hover:bg-accent"
+          title="Refresh Repositories"
+        >
+          <RefreshCw className="h-4 w-4" />
+        </button>
       </div>
     </div>
   )
