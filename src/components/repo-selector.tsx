@@ -1,6 +1,7 @@
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
+import { getURL } from '@/lib/utils'
 import { Github, RefreshCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -55,7 +56,7 @@ export default function RepoSelector({ onSelect, selectedRepoUrl }: RepoSelector
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${getURL()}auth/callback`,
         scopes: 'public_repo',
       },
     })

@@ -2,6 +2,7 @@
 
 import { createClient } from '@/utils/supabase/client'
 import { Github } from 'lucide-react'
+import { getURL } from '@/lib/utils'
 
 export default function OAuthButton() {
   const handleLogin = async () => {
@@ -9,7 +10,7 @@ export default function OAuthButton() {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${getURL()}auth/callback`,
         scopes: 'public_repo',
       },
     })
